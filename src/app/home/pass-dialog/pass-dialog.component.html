@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Introduzca su credencial</h2>
+<mat-dialog-content>
+  <p>¿Cuál es su credencial?</p>
+  <mat-form-field>
+    <mat-label>Credencial</mat-label>
+    <input matInput [(ngModel)]="data.credential">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.credential">Aceptar</button>
+</mat-dialog-actions>

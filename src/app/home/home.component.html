@@ -1,0 +1,60 @@
+@if (parking) {
+  @if (loading) {
+    <div class="mt-4 flex justify-center items-center">
+      <mat-spinner diameter="35"></mat-spinner>
+    </div>
+  } @else {
+    @if (passValid) {
+      <div class="mt-4 text-center mx-4">
+        <h1>¡Bienvenido!</h1>
+        <p>Cambie el estado del estacionamiento según su disponibilidad</p>
+        @if (!loadingUpdate) {
+          <button (click)="updateStateParking(parking)" mat-raised-button
+                  color="{{ parking.isFull ? 'primary' : 'warn' }}">
+            @if (parking.isFull) {
+              Cambiar a libre
+            } @else {
+              Cambiar a lleno
+            }
+          </button>
+        } @else {
+          <div class="mt-4 flex justify-center items-center">
+            <mat-spinner diameter="35"></mat-spinner>
+          </div>
+        }
+        <img src="{{ parking.imageUrl }}" alt="Parking" class="{{isSmallScreen ? 'w-72' : 'w-96'}} mx-auto mt-5">
+        <div class="flex justify-center mt-4">
+          <div [style]="{ height: isSmallScreen ? '300px' : '350px', width: isSmallScreen ? '300px' : '350px' }"
+               leaflet
+               [leafletOptions]="options"
+               (leafletMapReady)="onMapReady($event)"
+               [leafletCenter]="center"
+          >
+            <div
+              [leafletLayer]="createMarker(parking)"
+            ></div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="mt-4 text-center">
+        <h1>La credencial introducida no es válida</h1>
+        <button (click)="openDialog()" mat-raised-button color="warn">Introducir credencial</button>
+      </div>
+    }
+  }
+} @else {
+  @if (loading) {
+    <div class="mt-4 flex justify-center items-center">
+      <mat-spinner diameter="35"></mat-spinner>
+    </div>
+  } @else {
+
+    @if (!passValid || passNotEntered) {
+      <div class="mt-4 text-center">
+        <h1>Debe introducir su credencial correspondiente</h1>
+        <button (click)="openDialog()" mat-raised-button color="warn">Introducir credencial</button>
+      </div>
+    }
+  }
+}
