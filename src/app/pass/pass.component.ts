@@ -29,7 +29,7 @@ export class PassComponent implements OnInit {
             return;
           }
           localStorage.setItem('parking', JSON.stringify(parking));
-          this.router.navigate([ '../' ], { relativeTo: this.activatedRoute });
+          this.router.navigate([ '/' ]);
         }
       });
     });
